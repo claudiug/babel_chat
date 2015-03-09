@@ -2,20 +2,70 @@
   <div class="col-md-12">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <%= form_for @user, url: {action: 'create', controller: 'sessions'}, class: 'form-horizontal' do |f| %>
+          <h2 class="form-signin-heading">Please Enter a name</h2>
+          <div class="row">
+            <% if @user.errors.any? %>
+                <div class="col-md-12">
+                  <% @user.errors.full_messages.each do |error| %>
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                          <%= error %>
+                        </div>
+                      </div>
+                  <% end %>
+                </div>
+            <% end %>
+          </div>
+          <div class="form-group">
+            <div class="row">
+             <div class="col-md-12">
+               <div class="col-md-4">
+                 <%= f.label :username, class: 'control-label' %>
+               </div>
+               <div class="col-md-8">
+                 <%= f.text_field :username, class: 'form-control' %>
+               </div>
+             </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="form-signin-heading">Select Language</h4>
+            </div>
+            <div class="col-md-4">
+              <div class="checkbox">
+                <label>
+                  <%= radio_button_tag :type, 'yoda', "1" %>
+                  Yoda
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="checkbox">
+                <label>
+                  <%= radio_button_tag :type, "pirate" %>
+                  Pirate
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="checkbox">
+                <label>
+                  <%= radio_button_tag :type, "binary" %>
+                  Binary
+                </label>
+              </div>
+            </div>
+          </div>
 
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+            <div class="row">
+              <div class="col-md-12">
+                <%= f.submit 'login', class: "btn btn-lg btn-primary btn-block" %>
+              </div>
+            </div>
+          </div>
+      <% end %>
     </div>
     <div class="col-md-4"></div>
   </div>
