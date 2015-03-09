@@ -7,8 +7,9 @@ class SessionsController < ApplicationController
     @user = User.new(params.require(:user).permit(:username))
     if @user.valid?
       session[:username] = @user.username
+      session[:type] = params[:type]
       flash[:info] = "Welcome #{@user.username}"
-      redirect_to #TODO chat here
+      redirect_to messages_path
     else
       flash[:error] = "Please fix the errors"
       render :new
