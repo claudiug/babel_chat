@@ -11,10 +11,10 @@ feature 'User Management' do
 
   scenario 'it does not create a new user with invalid data' do
     visit root_path
-    fill_in 'user_username', with: ''
+    fill_in 'user_username', with: nil
     choose('yoda')
     click_button 'Login'
-    expect(page).to have_content('Please Enter a name Username')
+    expect(page).to have_content("Username can't be blank")
   end
 
   scenario 'it set the user language type on messages path' do

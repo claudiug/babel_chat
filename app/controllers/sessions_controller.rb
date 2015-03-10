@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       flash[:info] = "Welcome #{@user.username}"
       redirect_to messages_path
     else
-      flash[:error] = "Please fix the errors"
+      flash[:error] = 'Please fix the errors'
       render :new
     end
   end

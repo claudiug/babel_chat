@@ -21,6 +21,6 @@ $(function() {
 
     faye.subscribe('/messages/new', function (data) {
         console.log(data);
-        $("#chat").append('<li>' + data.object + '</li>')
+        $("#chat").append('<div class="alert alert-success" role="alert">' + data.object + '</div>')
     });
 });

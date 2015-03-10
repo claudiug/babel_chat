@@ -4,16 +4,19 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = params[:messages]
+    unless params[:message].present?
+      render(:index) && return
+    end
+    @message = params[:message]
     @type = session[:type]
     @username = session[:username]
     send_message('/messages/new', @message)
-    render nothing: true
+    render json: @message
   end
 
   def send_message(channel, what)
-    message = {channel: channel, data: {object: what, type: 'message'}}
-    uri = URI.parse("http://localhost:9292/faye")
+    message = { channel: channel, data: { object: what, type: 'message' } }
+    uri = URI.parse('http://localhost:9292/faye')
     Net::HTTP.post_form(uri, message: message.to_json)
   end
 
