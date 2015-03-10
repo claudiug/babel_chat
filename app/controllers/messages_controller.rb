@@ -1,5 +1,3 @@
-require 'faye'
-
 class MessagesController < ApplicationController
   before_filter :check_for_users
 

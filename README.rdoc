@@ -1,12 +1,11 @@
--> /login with get
--> /login with post
--> on post and valid data redirect to messages#index
--> on messages#index we have a remore form that post to messages#create
--> on message#create we grab the lanaguage type
--> maybe sidekik??? and move on another job
--> make classes for each language endpoint???
--> use nokogiri to parse the result and json to parse the json response
--> use httparty to post to faye channel
--> list of users??????
+= Status
 
-rackup faye.ru -E production -s puma
+- I do not have a list of active users
+- I think is possible to save the users in a redis
+- on faye, you can
+# faye.on(:publish) do |client_id, channel, data|
+#   puts "#{client_id} == #{channel} == #{data}"
+# end
+- data has the username
+
+- also, you can receive a DOS becuase anyone cand send amount of data on the channel. there is no protection
