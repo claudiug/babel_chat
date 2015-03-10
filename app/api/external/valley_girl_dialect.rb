@@ -1,21 +1,20 @@
-class ValleyGirlDialect
-  require 'nokogiri'
-  require 'open-uri'
+require 'nokogiri'
 
+class ValleyGirlDialect
+  include DialectData
   def initialize(message, type)
     @message = message
     @type = type
     @url = 'http://www.degraeve.com/cgi-bin/babel.cgi?d='
+    @data = prepare_data(@message, @type, @url)
   end
 
   def translate
-    data = Nokogiri::HTML(open(build_url))
-    data.css('blockquote > p').children.text.strip
+    if @data.code != 200
+      @message
+    else
+      Nokogiri::HTML(@data.body).css('blockquote > p').children.text.strip
+    end
   end
 
-  private
-
-  def build_url
-    "#{@url}#{@type}&w=#{@message}"
-  end
 end

@@ -1,21 +1,20 @@
 require 'nokogiri'
-require 'open-uri'
+
 class YodaDialect
+  include DialectData
 
   def initialize(message, type)
     @message = message
     @type = type
     @url = 'http://www.degraeve.com/cgi-bin/babel.cgi?d='
+    @data = prepare_data(@message, @type, @url)
   end
 
   def translate
-    data = Nokogiri::HTML(open(build_url))
-    data.css('blockquote > p').children.text.strip
-  end
-
-  private
-
-  def build_url
-    "#{@url}#{@type}&w=#{@message}"
+    if @data.code != 200
+      @message
+    else
+      Nokogiri::HTML(@data.body).css('blockquote > p').children.text.strip
+    end
   end
 end

@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   root 'sessions#new'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
-  resources :messages
+  resources :messages, only: [:create, :index] do
+    collection do
+      post :change_language
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

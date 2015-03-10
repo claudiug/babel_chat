@@ -15,3 +15,35 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.pirate {
+  background: url("pirate.gif") no-repeat;
+  width: 50px;
+  height: 50px;
+  border: none;
+  display: inline-block;
+};
+
+.valley {
+  background: url("valley.jpg") no-repeat;
+  width: 500px;
+  height: 50px;
+  border: none;
+  display: inline-block;
+};
+
+.yoda {
+  background: url("yoda.jpg") no-repeat;
+  width: 50px;
+  height: 50px;
+  border: none;
+  display: inline-block;
+};
+
+.binary {
+  background: url("binary.gif")no-repeat;
+  width: 50px;
+  height: 50px;
+  border: none;
+  display: inline-block;
+}

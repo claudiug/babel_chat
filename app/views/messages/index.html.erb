@@ -1,13 +1,38 @@
 <div class="row">
   <h2>Hello <%= session[:username].capitalize %></h2>
-  <p>You selected language:<strong><%= session[:type] %></strong></p>
-</div>
-<div id="chat">
-
 </div>
 
+<div class="row">
+  <div class="col-md-12">
+    <p>Change language</p>
+    <%= link_to 'pirate', change_language_messages_path(type: 'pirate'), remote: true, method: :post %>
+    <%= link_to 'yoda', change_language_messages_path(type: 'yoda'), remote: true, method: :post %>
+    <%= link_to 'binary', change_language_messages_path(type: 'binary'), remote: true, method: :post %>
+    <%= link_to 'valley girl', change_language_messages_path(type: 'valley'),  remote: true, method: :post %>
+  </div>
+</div>
 
-<%= form_tag messages_path, method: :post, remote:true do %>
-    <%= text_field_tag :message %>
-    <%= submit_tag 'send', id: 'send' %>
-<% end %>
+<div class="row">
+  <div class="col-md-8">
+    <div id="chat">
+
+    </div>
+  </div>
+  <div class="col-md-4">
+    <p>List of users</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= form_tag messages_path, method: :post, remote:true, class: 'form-inline' do %>
+       <div class="form-group">
+         <div class="col-xs-4">
+           <%= text_field_tag :message, "", class: 'form-control', id: 'message' %>
+         </div>
+       </div>
+        <div class="form-group">
+          <%= submit_tag 'Send Message', id: 'send', class: 'btn btn-info' %>
+        </div>
+    <% end %>
+  </div>
+</div>

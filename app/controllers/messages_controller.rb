@@ -1,32 +1,52 @@
+require 'faye'
+
 class MessagesController < ApplicationController
   before_filter :check_for_users
+
   def index
   end
 
   def create
+    @message = params[:message]
+    @type = session[:type]
     unless params[:message].present?
       render(:index) && return
     end
-    message_and_type
-    if @type == 'yoda'
-      @message = YodaDialect.new(@message, @type).translate
-    elsif @type == 'valley'
-      @message = ValleyGirlDialect.new(@message, @type).translate
-    elsif @type == 'binary'
-      @message = BinaryDialect.new(@message).translate
-    elsif @type == 'pirate'
-      @message = PirateDialect.new(@message).translate
-    end
-    @username = session[:username]
-    send_message('/messages/new', @message)
-    render json: @message
+    select_language_type
+    message = build_message
+    send_message('/messages/new', message)
+    render nothing: true
+  end
+
+  def change_language
+    session[:type] = params[:type]
+    render nothing: true
   end
 
   private
 
-  def message_and_type
-    @message = params[:message]
-    @type = session[:type]
+  def build_message
+    {
+        time: Time.current.to_formatted_s,
+        author: session[:username],
+        message: @message,
+        type: @type
+    }
+  end
+
+  def select_language_type
+    case @type
+      when 'yoda'
+        @message = YodaDialect.new(@message, @type).translate
+      when 'valley'
+        @message = ValleyGirlDialect.new(@message, @type).translate
+      when 'pirate'
+        @message = PirateDialect.new(@message, @type).translate
+      when 'binary'
+        @message = BinaryDialect.new(@message).translate
+      else
+        @message = 'cannot translate'
+    end
   end
 
   def send_message(channel, what)
@@ -38,4 +58,5 @@ class MessagesController < ApplicationController
   def check_for_users
     redirect_to root_path if session[:username].nil?
   end
+
 end

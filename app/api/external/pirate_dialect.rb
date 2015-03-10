@@ -1,17 +1,18 @@
-require 'httparty'
 class PirateDialect
-  def initialize(message)
+  include DialectData
+  def initialize(message, type)
     @message = message
+    @type = type
     @url = 'http://isithackday.com/arrpi.php'
+    @data =  prepare_data(@message, @type, @url)
   end
 
   def translate
-    data = HTTParty.get(build_url).body
-    JSON.parse(data)['translation']['pirate']
+    if @data.code != 200
+      @message
+    else
+      JSON.parse(@data.body)['translation']['pirate']
+    end
   end
 
-  private
-  def build_url
-    "#{@url}?text=#{@message}&format=json"
-  end
 end

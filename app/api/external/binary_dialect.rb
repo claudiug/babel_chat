@@ -6,6 +6,4 @@ class BinaryDialect
   def translate
     @message.unpack("B*")
   end
-
-  private
 end
