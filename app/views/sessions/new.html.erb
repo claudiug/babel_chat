@@ -3,7 +3,7 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
       <%= form_for @user, url: {action: 'create', controller: 'sessions'}, class: 'form-horizontal' do |f| %>
-          <h2 class="form-signin-heading">Please Enter a name</h2>
+          <h2 class="form-signin-heading">Enter A Name</h2>
           <div class="row">
             <% if @user.errors.any? %>
                 <div class="col-md-12">

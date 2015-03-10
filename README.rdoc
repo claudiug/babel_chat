@@ -8,3 +8,5 @@
 -> use nokogiri to parse the result and json to parse the json response
 -> use httparty to post to faye channel
 -> list of users??????
+
+rackup faye.ru -E production -s puma
