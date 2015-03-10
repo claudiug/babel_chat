@@ -249,6 +249,7 @@ DEPENDENCIES
   faye
   jbuilder (~> 2.0)
   jquery-rails
+  nokogiri
   oj
   puma
   quiet_assets

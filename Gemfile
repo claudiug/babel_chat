@@ -13,6 +13,7 @@ gem 'puma'
 gem 'bootstrap-sass', '~> 3.3.3'
 gem 'faye'
 gem 'oj'
+gem 'nokogiri'
 group :development, :test do
   gem 'simplecov', :require => false
   gem 'byebug'
