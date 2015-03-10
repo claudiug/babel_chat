@@ -1,12 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe SessionsController, type: :controller do
+describe SessionsController do
 
-  describe "GET #new" do
-    it "returns http success" do
+  describe 'GET #new ' do
+    it 'render the proper template' do
       get :new
-      expect(response).to have_http_status(:success)
+      expect(response).to render_template 'new'
     end
   end
 
+  describe 'POST #create' do
+    it 'redirect to messages controller with valid data' do
+      post :create, user: attributes_for(:user)
+      expect(response).to redirect_to messages_path
+    end
+  end
 end
