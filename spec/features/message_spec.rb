@@ -3,6 +3,7 @@ WebMock.allow_net_connect!
 
 feature 'Messages' do
   scenario 'login user I must send chat messages' do
+    Capybara.current_driver = :webkit
     visit root_path
     fill_in 'user_username', with: 'babel_user'
     choose('yoda')
@@ -13,6 +14,7 @@ feature 'Messages' do
   end
 
   scenario 'I should not be able to send empty messages' do
+    Capybara.current_driver = :webkit
     visit root_path
     fill_in 'user_username', with: 'babel_user'
     choose('yoda')
