@@ -8,7 +8,7 @@ feature 'Messages' do
     click_button 'Login'
     fill_in 'message', with: 'amazing text'
     click_button 'send'
-    expect(page).to have_content 'amazing text'
+    expect(page).to have_content 'Amazing text'
   end
 
   scenario 'I should not be able to send empty messages' do

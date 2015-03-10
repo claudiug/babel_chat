@@ -14,7 +14,7 @@ class MessagesController < ApplicationController
       @message = ValleyGirlDialect.new(@message, @type).translate
     elsif @type == 'binary'
       @message = BinaryDialect.new(@message).translate
-    else
+    elsif @type == 'pirate'
       @message = PirateDialect.new(@message).translate
     end
     @username = session[:username]

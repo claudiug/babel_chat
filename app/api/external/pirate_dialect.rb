@@ -1,12 +1,12 @@
-require 'open-uri'
+require 'httparty'
 class PirateDialect
   def initialize(message)
     @message = message
-    @url = 'http://isithackday.com/arrpi.php?text=hello&format=json'
+    @url = 'http://isithackday.com/arrpi.php'
   end
 
   def translate
-    data = open(build_url).read
+    data = HTTParty.get(build_url).body
     JSON.parse(data)['translation']['pirate']
   end
 
