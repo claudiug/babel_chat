@@ -13,6 +13,7 @@ gem 'puma'
 gem 'bootstrap-sass', '~> 3.3.3'
 
 group :development, :test do
+  gem 'simplecov', :require => false
   gem 'byebug'
   gem 'binding_of_caller'
   gem 'better_errors'
