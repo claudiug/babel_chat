@@ -35,13 +35,13 @@ class MessagesController < ApplicationController
   def select_language_type
     case @type
       when 'yoda'
-        @message = YodaDialect.new(@message, @type).translate
+       Thread.new { @message = YodaDialect.new(@message, @type).translate }
       when 'valley'
-        @message = ValleyGirlDialect.new(@message, @type).translate
+        Thread.new { @message = ValleyGirlDialect.new(@message, @type).translate }
       when 'pirate'
-        @message = PirateDialect.new(@message, @type).translate
+        Thread.new { @message = PirateDialect.new(@message, @type).translate }
       when 'binary'
-        @message = BinaryDialect.new(@message).translate
+       Thread.new { @message = BinaryDialect.new(@message).translate }
       else
         @message = 'cannot translate'
     end
