@@ -1,28 +1,10 @@
-== README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+-> /login with get
+-> /login with post
+-> on post and valid data redirect to messages#index
+-> on messages#index we have a remore form that post to messages#create
+-> on message#create we grab the lanaguage type
+-> maybe sidekik??? and move on another job
+-> make classes for each language endpoint???
+-> use nokogiri to parse the result and json to parse the json response
+-> use httparty to post to faye channel
+-> list of users??????
