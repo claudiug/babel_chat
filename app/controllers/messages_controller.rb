@@ -5,11 +5,12 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = params[:message]
-    @type = session[:type]
     unless params[:message].present?
       render(:index) && return
     end
+    @message = params[:message]
+    @type = session[:type]
+    
     select_language_type
     message = build_message
     send_message('/messages/new', message)
