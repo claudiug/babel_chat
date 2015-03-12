@@ -1,11 +1,26 @@
-= Status
+= How to start the app
 
-- I do not have a list of active users
-- I think is possible to save the users in a redis
-- on faye, you can
-# faye.on(:publish) do |client_id, channel, data|
-#   puts "#{client_id} == #{channel} == #{data}"
-# end
-- data has the username
+- bundle install
+- rails s
+- rackup faye.ru -s puma -E production
 
-- also, you can receive a DOS becuase anyone cand send amount of data on the channel. there is no protection
+= Tasks
+
+1. As a user I will fill out my form in the root page and store the username in session
+- I've crete a user model, with validation
+- there is form_for for that user object in the sessions#new(GET) and save in session on #sessions#create
+- there presence and lenght constraint validation
+
+2. As a user I see instance messaging chat in the middle input text at the button and on the left a list of active users
+- text, and input are there, the list of active users not done
+
+3. When I submit a message is translated in previously selected dialect and all the user sees the messages
+Message has the format 'time + user + message'
+Message has icons for each type of dialect
+- On the messages controller you allready have the dialect type(store also in session)
+- Based on type, the call will be handle by external endpoint, return if status 200 to the controller, and publish
+using faye
+
+The message format 'time + user + message' is on the application.js where also is the js for faye client
+4. You can change the dialect type after login on the message controller by subminting an post request with the type
+on the change_language route(will reset the session and store the new type)

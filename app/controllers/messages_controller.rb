@@ -29,20 +29,20 @@ class MessagesController < ApplicationController
         time: Time.current.to_formatted_s,
         author: session[:username],
         message: @message,
-        type: @type
+        dialect_type: @type
     }
   end
 
   def select_language_type
     case @type
       when 'yoda'
-       Thread.new { @message = YodaDialect.new(@message, @type).translate }
+        @message = YodaDialect.new(@message, @type).translate
       when 'valley'
-        Thread.new { @message = ValleyGirlDialect.new(@message, @type).translate }
+        @message = ValleyGirlDialect.new(@message, @type).translate
       when 'pirate'
-        Thread.new { @message = PirateDialect.new(@message, @type).translate }
+        @message = PirateDialect.new(@message, @type).translate
       when 'binary'
-       Thread.new { @message = BinaryDialect.new(@message).translate }
+        @message = BinaryDialect.new(@message).translate
       else
         @message = 'cannot translate'
     end
