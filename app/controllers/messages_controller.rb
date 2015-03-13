@@ -10,8 +10,8 @@ class MessagesController < ApplicationController
     end
     @message = params[:message]
     @type = session[:type]
-    
-    select_language_type
+
+    @message = Dialect.translate_for_type(@type).with_message(@message).result
     message = build_message
     send_message('/messages/new', message)
     render nothing: true
@@ -26,26 +26,11 @@ class MessagesController < ApplicationController
 
   def build_message
     {
-        time: Time.current.to_formatted_s,
-        author: session[:username],
-        message: @message,
-        dialect_type: @type
+      time: Time.current.to_formatted_s,
+      author: session[:username],
+      message: @message,
+      dialect_type: @type
     }
-  end
-
-  def select_language_type
-    case @type
-      when 'yoda'
-        @message = YodaDialect.new(@message, @type).translate
-      when 'valley'
-        @message = ValleyGirlDialect.new(@message, @type).translate
-      when 'pirate'
-        @message = PirateDialect.new(@message, @type).translate
-      when 'binary'
-        @message = BinaryDialect.new(@message).translate
-      else
-        @message = 'cannot translate'
-    end
   end
 
   def send_message(channel, what)
@@ -57,5 +42,4 @@ class MessagesController < ApplicationController
   def check_for_users
     redirect_to root_path if session[:username].nil?
   end
-
 end

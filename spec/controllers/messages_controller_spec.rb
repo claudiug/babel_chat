@@ -16,6 +16,5 @@ describe MessagesController do
       post :change_language, nil, type: el
       expect(session[:type]).to eq el
     end
-
   end
 end
