@@ -2,19 +2,21 @@ class MessagesController < ApplicationController
   before_filter :check_for_users
 
   def index
+    @message = Message.new
   end
 
   def create
-    unless params[:message].present?
-      render(:index) && return
+    @message = Message.new(params.require(:message).permit(:content))
+    if @message.valid?
+      @type = session[:type]
+      @message = Dialect.translate_for_type(@type).with_message(@message.content).result
+      message = build_message
+      send_message('/messages/new', message)
+      render json: @message
+    else
+      render :index
     end
-    @message = params[:message]
-    @type = session[:type]
 
-    @message = Dialect.translate_for_type(@type).with_message(@message).result
-    message = build_message
-    send_message('/messages/new', message)
-    render nothing: true
   end
 
   def change_language
